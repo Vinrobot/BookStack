@@ -286,12 +286,17 @@ class ImageService extends UploadService
      * @return mixed
      * @throws Exception
      */
-    public function saveUserGravatar(User $user, $size = 500)
+    public function saveUserGravatar(User $user, $gravatarUrl, $size = 500)
     {
-        $emailHash = md5(strtolower(trim($user->email)));
-        $url = 'https://www.gravatar.com/avatar/' . $emailHash . '?s=' . $size . '&d=identicon';
+        if (!is_string($gravatarUrl) || empty($gravatarUrl)) {
+            $gravatarUrl = 'https://www.gravatar.com/avatar/%{hash}?s=%{size}&d=identicon';
+        }
+        $email = strtolower(trim($user->email));
+        $gravatarUrl = str_replace('%{hash}', md5($email), $gravatarUrl);
+        $gravatarUrl = str_replace('%{size}', $size, $gravatarUrl);
+        $gravatarUrl = str_replace('%{email}', $email, $gravatarUrl);
         $imageName = str_replace(' ', '-', $user->name . '-gravatar.png');
-        $image = $this->saveNewFromUrl($url, 'user', $imageName);
+        $image = $this->saveNewFromUrl($gravatarUrl, 'user', $imageName);
         $image->created_by = $user->id;
         $image->updated_by = $user->id;
         $image->save();
