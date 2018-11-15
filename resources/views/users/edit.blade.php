@@ -63,14 +63,16 @@
                     <p class="text-muted">{{ trans('settings.users_social_accounts_info') }}</p>
                     <div class="container">
                         <div class="row">
-                            @foreach($activeSocialDrivers as $driver => $enabled)
+                            @foreach($activeSocialDrivers as $driver => $driverName)
                                 <div class="col-sm-4 col-xs-6 text-center">
                                     <div>@icon('auth/'. $driver, ['style' => 'width: 56px;height: 56px;'])</div>
                                     <div>
-                                        @if($user->hasSocialAccount($driver))
+                                        @if(!$user->hasSocialAccount($driver))
+                                            <a href="{{ baseUrl("/login/service/{$driver}") }}" class="button pos">{{ trans('settings.users_social_connect') }}</a>
+                                        @elseif(in_array($driver, $disconnectableDrivers))
                                             <a href="{{ baseUrl("/login/service/{$driver}/detach") }}" class="button neg">{{ trans('settings.users_social_disconnect') }}</a>
                                         @else
-                                            <a href="{{ baseUrl("/login/service/{$driver}") }}" class="button pos">{{ trans('settings.users_social_connect') }}</a>
+                                            <p class="button muted" disabled>{{ $driverName }}</p>
                                         @endif
                                     </div>
                                     <div>&nbsp;</div>

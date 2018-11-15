@@ -239,13 +239,43 @@ class SocialAuthService
     /**
      * Detach a social account from a user.
      * @param $socialDriver
+     * @param $force
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function detachSocialAccount($socialDriver)
+    public function detachSocialAccount($socialDriver, $force = false)
     {
-        user()->socialAccounts()->where('driver', '=', $socialDriver)->delete();
-        session()->flash('success', trans('settings.users_social_disconnected', ['socialAccount' => title_case($socialDriver)]));
+        if ($force || $this->checkAllowDisconnect($socialDriver)) {
+            user()->socialAccounts()->where('driver', '=', $socialDriver)->delete();
+            session()->flash('success', trans('settings.users_social_disconnected', ['socialAccount' => title_case($socialDriver)]));
+        } else {
+            session()->flash('error', trans('errors.social_account_not_disconnectable', ['socialAccount' => title_case($socialDriver)]));
+        }
         return redirect(user()->getEditUrl());
+    }
+
+    /**
+     * Gets the list of the active social drivers allowed to be disconnected.
+     * @return array
+     */
+    public function getDisconnectableDrivers()
+    {
+        $drivers = [];
+        foreach ($this->validSocialDrivers as $driver) {
+            if ($this->checkDriverConfigured($driver) && $this->checkAllowDisconnect($driver)) {
+                array_push($drivers, $driver);
+            }
+        }
+        return $drivers;
+    }
+
+    /**
+     * Check if the current config for the given driver allows disconnection.
+     * @param $driver
+     * @return bool
+     */
+    public function checkAllowDisconnect(string $driver)
+    {
+        return config('services.' . strtolower($driver) . '.allow_disconnect') !== false;
     }
 
     /**

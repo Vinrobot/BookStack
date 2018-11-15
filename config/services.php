@@ -50,6 +50,7 @@ return [
         'name'          => 'GitHub',
         'auto_register' => env('GITHUB_AUTO_REGISTER', false),
         'auto_confirm' => env('GITHUB_AUTO_CONFIRM_EMAIL', false),
+        'allow_disconnect' => env('GITHUB_ALLOW_DISCONNECT', true),
     ],
 
     'google'   => [
@@ -60,6 +61,7 @@ return [
         'auto_register' => env('GOOGLE_AUTO_REGISTER', false),
         'auto_confirm' => env('GOOGLE_AUTO_CONFIRM_EMAIL', false),
         'select_account' => env('GOOGLE_SELECT_ACCOUNT', false),
+        'allow_disconnect' => env('GOOGLE_ALLOW_DISCONNECT', true),
     ],
 
     'slack'   => [
@@ -69,6 +71,7 @@ return [
         'name'          => 'Slack',
         'auto_register' => env('SLACK_AUTO_REGISTER', false),
         'auto_confirm' => env('SLACK_AUTO_CONFIRM_EMAIL', false),
+        'allow_disconnect' => env('SLACK_ALLOW_DISCONNECT', true),
     ],
 
     'facebook'   => [
@@ -78,6 +81,7 @@ return [
         'name'          => 'Facebook',
         'auto_register' => env('FACEBOOK_AUTO_REGISTER', false),
         'auto_confirm' => env('FACEBOOK_AUTO_CONFIRM_EMAIL', false),
+        'allow_disconnect' => env('FACEBOOK_ALLOW_DISCONNECT', true),
     ],
 
     'twitter'   => [
@@ -87,6 +91,7 @@ return [
         'name'          => 'Twitter',
         'auto_register' => env('TWITTER_AUTO_REGISTER', false),
         'auto_confirm' => env('TWITTER_AUTO_CONFIRM_EMAIL', false),
+        'allow_disconnect' => env('TWITTER_ALLOW_DISCONNECT', true),
     ],
 
     'azure'   => [
@@ -97,6 +102,7 @@ return [
         'name'          => 'Microsoft Azure',
         'auto_register' => env('AZURE_AUTO_REGISTER', false),
         'auto_confirm' => env('AZURE_AUTO_CONFIRM_EMAIL', false),
+        'allow_disconnect' => env('AZURE_ALLOW_DISCONNECT', true),
     ],
 
     'okta' => [
@@ -107,6 +113,7 @@ return [
         'name'          => 'Okta',
         'auto_register' => env('OKTA_AUTO_REGISTER', false),
         'auto_confirm' => env('OKTA_AUTO_CONFIRM_EMAIL', false),
+        'allow_disconnect' => env('OKTA_ALLOW_DISCONNECT', true),
     ],
 
     'gitlab' => [
@@ -117,6 +124,7 @@ return [
         'name'          => 'GitLab',
         'auto_register' => env('GITLAB_AUTO_REGISTER', false),
         'auto_confirm' => env('GITLAB_AUTO_CONFIRM_EMAIL', false),
+        'allow_disconnect' => env('GITLAB_ALLOW_DISCONNECT', true),
     ],
 
     'twitch' => [
@@ -126,6 +134,7 @@ return [
         'name'          => 'Twitch',
         'auto_register' => env('TWITCH_AUTO_REGISTER', false),
         'auto_confirm' => env('TWITCH_AUTO_CONFIRM_EMAIL', false),
+        'allow_disconnect' => env('TWITCH_ALLOW_DISCONNECT', true),
     ],
 
     'discord' => [
@@ -135,6 +144,7 @@ return [
         'name' => 'Discord',
         'auto_register' => env('DISCORD_AUTO_REGISTER', false),
         'auto_confirm' => env('DISCORD_AUTO_CONFIRM_EMAIL', false),
+        'allow_disconnect' => env('DISCORD_ALLOW_DISCONNECT', true),
     ],
 
     'ldap' => [
